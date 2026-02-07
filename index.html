@@ -115,7 +115,7 @@
 
         function filterCategory(cat) {
             document.querySelectorAll('.article-card').forEach(card => {
-                const id = card.querySelector('.article-title').getAttribute('onclick').match(/'([^']+)'/)[1];
+                const id = card.getAttribute('onclick').match(/'([^']+)'/)[1];
                 const a = articles.find(x => x.id === id);
                 card.style.display = (cat === 'all' || a.category === cat) ? 'block' : 'none';
             });
