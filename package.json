@@ -1,0 +1,27 @@
+{
+  "name": "nanami-blog",
+  "version": "1.0.0",
+  "description": "Nanami 的个人博客 - 程序员·小黑猫",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "gray-matter": "4.0.3",
+    "next": "14.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "remark": "14.0.2",
+    "remark-html": "15.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "10.4.17",
+    "cloudflared": "^0.7.1",
+    "eslint": "8.56.0",
+    "eslint-config-next": "14.1.0",
+    "postcss": "8.4.35",
+    "tailwindcss": "3.4.1"
+  }
+}

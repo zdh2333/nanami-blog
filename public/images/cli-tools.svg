@@ -1,0 +1,26 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e1b4b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg2)"/>
+  <!-- 终端窗口 -->
+  <rect x="100" y="80" width="600" height="240" rx="10" fill="#1e1b4b" stroke="#334155" stroke-width="2"/>
+  <rect x="100" y="80" width="600" height="30" rx="10" fill="#334155"/>
+  <circle cx="130" cy="95" r="8" fill="#ef4444"/>
+  <circle cx="155" cy="95" r="8" fill="#eab308"/>
+  <circle cx="180" cy="95" r="8" fill="#22c55e"/>
+  <!-- 命令 -->
+  <text x="130" y="140" font-family="monospace" font-size="18" fill="#22c55e">$ zoxide</text>
+  <text x="130" y="170" font-family="monospace" font-size="18" fill="#22c55e">$ fzf --preview</text>
+  <text x="130" y="200" font-family="monospace" font-size="18" fill="#a78bfa">$ bat README.md</text>
+  <text x="130" y="230" font-family="monospace" font-size="18" fill="#f472b6">$ httpie GET</text>
+  <text x="130" y="260" font-family="monospace" font-size="18" fill="#94a3b8"># 效率提升 10x ⚡</text>
+  <!-- 光标 -->
+  <rect x="130" y="275" width="10" height="20" fill="#22c55e">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+  <text x="400" y="370" text-anchor="middle" font-family="Arial" font-size="24" fill="#94a3b8">CLI Efficiency Tools</text>
+</svg>
