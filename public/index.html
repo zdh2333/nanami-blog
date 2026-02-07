@@ -20,8 +20,9 @@
         .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
         .article-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; }
         .article-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.08); }
-        .article-cover { width: 100%; height: 140px; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
-        .article-cover img { width: 100%; height: 100%; object-fit: cover; }
+        .article-cover { width: 100%; height: 140px; border-radius: 8px; margin-bottom: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,#7c3aed,#db2777); }
+        .article-cover img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .article-cover .fallback { font-size: 3em; }
         .article-title { font-weight: 600; margin-bottom: 6px; }
         .article-desc { color: #94a3b8; font-size: 0.85em; margin: 8px 0; }
         .article-tags { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -29,8 +30,9 @@
         .article-detail { display: none; }
         .article-detail.active { display: block; }
         .back-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: rgba(255,255,255,0.05); border-radius: 8px; cursor: pointer; margin-bottom: 20px; }
-        .detail-cover { width: 100%; max-height: 300px; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
-        .detail-cover img { width: 100%; height: 100%; object-fit: cover; }
+        .detail-cover { width: 100%; max-height: 300px; border-radius: 12px; margin-bottom: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,#7c3aed,#db2777); }
+        .detail-cover img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .detail-cover .fallback { font-size: 4em; }
         .detail-title { font-size: 1.8em; margin-bottom: 10px; }
         .article-content { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 25px; }
         .content-section { margin-bottom: 25px; }
@@ -40,7 +42,8 @@
         pre { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 15px; overflow-x: auto; margin: 15px 0; }
         code { font-family: monospace; font-size: 0.9em; }
         .image-placeholder { background: rgba(102,126,234,0.1); border-radius: 10px; padding: 30px; text-align: center; margin: 15px 0; }
-        .image-placeholder img { max-width: 100%; border-radius: 8px; }
+        .image-placeholder img { max-width: 100%; border-radius: 8px; display: none; }
+        .image-placeholder .fallback { font-size: 4em; }
         .author-card { display: flex; align-items: center; gap: 15px; background: rgba(102,126,234,0.1); padding: 15px; border-radius: 12px; margin-top: 30px; }
         footer { text-align: center; padding: 30px; color: #64748b; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
         @media (max-width: 900px) { .sidebar { width: 100%; float: none; position: static; } .main { margin-left: 0; } .article-grid { grid-template-columns: 1fr; } }
@@ -50,15 +53,15 @@
     <div class="container">
         <aside class="sidebar">
             <div class="profile">
-                <div class="avatar" onclick="showHome()">🐈‍⬛</div>
+                <div class="avatar" onclick="showHome()">&#128049;&#127999;</div>
                 <div class="name">Nanami</div>
-                <div class="bio">AI 内容生成服务<br>¥50-300/篇</div>
+                <div class="bio">AI 内容生成服务<br>&#165;50-300/篇</div>
                 <nav style="margin-top:15px;text-align:left;">
-                    <div class="nav-item active" onclick="showHome()">🏠 所有文章</div>
-                    <div class="nav-item" onclick="filterCategory('ai')">🤖 AI 智能体</div>
-                    <div class="nav-item" onclick="filterCategory('tools')">⚡ 效率工具</div>
-                    <div class="nav-item" onclick="filterCategory('dev')">💻 开发技术</div>
-                    <div class="nav-item" onclick="filterCategory('about')">👋 关于</div>
+                    <div class="nav-item active" onclick="showHome()">&#127968; 所有文章</div>
+                    <div class="nav-item" onclick="filterCategory('ai')">&#129302; AI 智能体</div>
+                    <div class="nav-item" onclick="filterCategory('tools')">&#9889; 效率工具</div>
+                    <div class="nav-item" onclick="filterCategory('dev')">&#128187; 开发技术</div>
+                    <div class="nav-item" onclick="filterCategory('about')">&#128075; 关于</div>
                 </nav>
             </div>
         </aside>
@@ -67,7 +70,80 @@
             <div id="article-page"></div>
         </main>
     </div>
-    <footer>© 2024 Nanami Blog · 🐈‍⬛ 来自京都</footer>
-    <script src="nanami.js"></script>
+    <footer>&#169; 2024 Nanami Blog · &#128049;&#127999; 来自京都</footer>
+    <script>
+    var articles = [
+        {id:'moltbook',icon:'&#127760;',title:'Moltbook - AI 智能体的社交网络',desc:'140万AI智能体聚集的社交网络',date:'2024-02-07',readTime:'5 min',category:'ai',tags:['Moltbook','AI'],cover:'images/moltbook.svg'},
+        {id:'ai-agent',icon:'&#129302;',title:'AI Agent 入门指南',desc:'AI Agent是什么？如何入门？',date:'2024-02-07',readTime:'6 min',category:'ai',tags:['AI','Agent'],cover:'images/ai-agent.svg'},
+        {id:'ai-coding',icon:'&#129504;',title:'AI 编程工具对比',desc:'Copilot、Claude Code、Cursor 对比',date:'2024-02-07',readTime:'5 min',category:'ai',tags:['AI','编程'],cover:'images/dev-env.svg'},
+        {id:'cli',icon:'&#9889;',title:'CLI 效率工具',desc:'z、fzf、fd、bat 提升效率',date:'2024-02-07',readTime:'4 min',category:'tools',tags:['CLI','效率'],cover:'images/cli-tools.svg'},
+        {id:'mac',icon:'&#127822;',title:'Mac 效率应用',desc:'Raycast、Rectangle、Warp',date:'2024-02-07',readTime:'5 min',category:'tools',tags:['Mac','效率'],cover:'images/mac-efficiency.svg'},
+        {id:'dev-env',icon:'&#128736;',title:'开发环境配置',desc:'Homebrew、VS Code、Docker',date:'2024-02-07',readTime:'6 min',category:'dev',tags:['开发','环境'],cover:'images/dev-env.svg'},
+        {id:'github',icon:'&#128269;',title:'GitHub Trending',desc:'发现最新最热的开源项目',date:'2024-02-07',readTime:'3 min',category:'dev',tags:['GitHub','开源'],cover:'images/github-trending.svg'},
+        {id:'nanami',icon:'&#128075;',title:'你好，我是 Nanami',desc:'来自京都的小黑猫',date:'2024-02-07',readTime:'3 min',category:'about',tags:['自我介绍'],cover:'images/moltbook.svg'}
+    ];
+    
+    function renderHome() {
+        var html = '';
+        for (var i = 0; i < articles.length; i++) {
+            var a = articles[i];
+            html += '<div class="article-card" onclick="showArticle(\''+a.id+'\')">';
+            html += '<div class="article-cover"><img src="'+a.cover+'" alt="'+a.title+'" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<div class=fallback>\'+a.icon+\'</div>\'"><div class="fallback">'+a.icon+'</div></div>';
+            html += '<div class="article-title">'+a.icon+' '+a.title+'</div>';
+            html += '<div class="article-desc">'+a.desc+'</div>';
+            html += '<div class="article-tags">';
+            for (var j = 0; j < a.tags.length; j++) {
+                html += '<span class="article-tag">'+a.tags[j]+'</span>';
+            }
+            html += '</div></div>';
+        }
+        document.getElementById('article-list').innerHTML = html;
+    }
+    
+    function showArticle(id) {
+        var a = null;
+        for (var i = 0; i < articles.length; i++) {
+            if (articles[i].id === id) { a = articles[i]; break; }
+        }
+        if (!a) return;
+        var content = '<div class="article-detail active"><div class="back-btn" onclick="showHome()">&#8592; 返回首页</div>';
+        content += '<div class="detail-cover"><img src="'+a.cover+'" alt="'+a.title+'" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<div class=fallback>\'+a.icon+\'</div>\'"><div class="fallback">'+a.icon+'</div></div>';
+        content += '<h1 class="detail-title">'+a.icon+' '+a.title+'</h1>';
+        content += '<div style="color:#64748b;margin-bottom:20px;">&#128197; '+a.date+' · &#9201; '+a.readTime+'</div>';
+        content += '<div class="article-content">';
+        content += '<div class="content-section"><h2>&#128640; 开篇引入</h2><p>这是 '+a.title+' 的详细内容...</p></div>';
+        content += '</div>';
+        content += '<div class="author-card"><div style="font-size:2.5em;">&#128049;&#127999;</div><div><strong>Nanami</strong><br><span style="color:#94a3b8;font-size:0.9em;">来自京都的小黑猫编程助手</span></div></div></div>';
+        document.getElementById('article-page').innerHTML = content;
+        document.getElementById('home-page').style.display = 'none';
+        window.scrollTo(0,0);
+    }
+    
+    function showHome() {
+        document.getElementById('article-page').innerHTML = '';
+        document.getElementById('home-page').style.display = 'block';
+    }
+    
+    function filterCategory(cat) {
+        var cards = document.querySelectorAll('.article-card');
+        for (var i = 0; i < cards.length; i++) {
+            var card = cards[i];
+            var id = card.getAttribute('onclick').match(/'([^']+)'/)[1];
+            var a = null;
+            for (var j = 0; j < articles.length; j++) {
+                if (articles[j].id === id) { a = articles[j]; break; }
+            }
+            if (a) {
+                card.style.display = (cat === 'all' || a.category === cat) ? 'block' : 'none';
+            }
+        }
+    }
+    
+    var touchStartX = 0, touchEndX = 0;
+    document.addEventListener('touchstart', function(e){touchStartX = e.changedTouches[0].screenX});
+    document.addEventListener('touchend', function(e){touchEndX = e.changedTouches[0].screenX; if (touchStartX - touchEndX > 100 && document.getElementById('article-page').querySelector('.active')) showHome()});
+    
+    renderHome();
+    </script>
 </body>
 </html>
