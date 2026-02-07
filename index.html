@@ -26,26 +26,10 @@
         .article-desc{padding:0 20px 15px;color:#64748b;font-size:0.95em}
         .article-tags{padding:0 20px 20px;display:flex;flex-wrap:wrap;gap:8px}
         .article-tag{background:#f1f5f9;color:#64748b;padding:4px 12px;border-radius:20px;font-size:0.85em}
-        .article-detail{background:#fff;border-radius:20px;padding:40px;box-shadow:0 4px 20px rgba(0,0,0,0.08);max-width:800px;margin:0 auto}
-        .back-btn{padding:12px 20px;background:#f1f5f9;border-radius:10px;cursor:pointer;display:inline-block;margin-bottom:30px;color:#64748b;transition:all 0.2s}
+        .article-frame{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);width:100%;min-height:80vh;border:none}
+        .back-btn{padding:12px 20px;background:#f1f5f9;border-radius:10px;cursor:pointer;display:inline-block;margin-bottom:20px;color:#64748b;transition:all 0.2s;font-size:0.95em}
         .back-btn:hover{background:#e2e8f0;color:#1e293b}
-        .detail-title{font-size:2em;margin-bottom:15px;color:#1e293b}
-        .content-section{margin:30px 0}
-        .content-section h2{font-size:1.4em;color:#1e293b;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #f1f5f9}
-        .content-section p{margin-bottom:15px;color:#475569}
-        .content-section ul,.content-section ol{margin:15px 0;padding-left:25px}
-        .content-section li{margin-bottom:10px;color:#475569}
-        .content-section blockquote{background:#f8fafc;border-left:4px solid #667eea;padding:20px;margin:20px 0;border-radius:0 10px 10px 0}
-        .author-card{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:30px;border-radius:16px;margin-top:40px;display:flex;align-items:center;gap:20px}
         footer{text-align:center;padding:40px;color:#94a3b8;font-size:0.9em;margin-top:60px;border-top:1px solid #e2e8f0}
-        .content-section img{max-width:100%;border-radius:12px;margin:20px 0}
-        .cover-image{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;padding:60px;text-align:center;color:#fff;font-size:30px;margin-bottom:40px}
-        .cover-image img{max-width:100%;border-radius:12px}
-        .cover-fallback{font-size:80px}
-        .meta{margin-bottom:30px;color:#64748b}
-        .meta span{margin-right:20px}
-        .tag-cloud{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-        .tag-cloud span{background:#f1f5f9;color:#64748b;padding:6px 16px;border-radius:20px;font-size:0.9em}
         @media(max-width:768px){.container{flex-direction:column}.sidebar{width:100%;position:relative;height:auto}.main{margin-left:0}}
     </style>
 </head>
@@ -90,7 +74,7 @@
         var html = '';
         for (var i = 0; i < articles.length; i++) {
             var a = articles[i];
-            html += '<div class="article-card" onclick="loadArticle(\''+a.id+'\')">';
+            html += '<div class="article-card" onclick="showArticle(\''+a.id+'\')">';
             html += '<div class="article-cover"><img src="'+a.cover+'" alt="'+a.title+'" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<div class=fallback>\'+a.icon+\'</div>\'"><div class="fallback">'+a.icon+'</div></div>';
             html += '<div class="article-title">'+a.icon+' '+a.title+'</div>';
             html += '<div class="article-desc">'+a.desc+'</div>';
@@ -103,22 +87,11 @@
         document.getElementById('article-list').innerHTML = html;
     }
     
-    function loadArticle(id) {
-        fetch(id + '.html')
-            .then(response => response.text())
-            .then(html => {
-                var parser = new DOMParser();
-                var doc = parser.parseFromString(html, 'text/html');
-                var content = doc.querySelector('article').innerHTML;
-                document.getElementById('article-page').innerHTML = 
-                    '<div class="article-detail"><div class="back-btn" onclick="showHome()">← 返回首页</div>' + content + '</div>';
-                document.getElementById('home-page').style.display = 'none';
-                window.scrollTo(0,0);
-            })
-            .catch(err => {
-                document.getElementById('article-page').innerHTML = 
-                    '<div class="article-detail"><div class="back-btn" onclick="showHome()">← 返回首页</div><h1>文章加载失败</h1><p>请检查文章是否存在: ' + id + '.html</p></div>';
-            });
+    function showArticle(id) {
+        document.getElementById('home-page').style.display = 'none';
+        document.getElementById('article-page').innerHTML = 
+            '<div><div class="back-btn" onclick="showHome()">← 返回首页</div><iframe src="'+id+'.html" class="article-frame"></iframe></div>';
+        window.scrollTo(0,0);
     }
     
     function showHome() {
