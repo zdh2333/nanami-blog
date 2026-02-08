@@ -90,7 +90,7 @@
     function showArticle(id) {
         document.getElementById('home-page').style.display = 'none';
         document.getElementById('article-page').innerHTML = 
-            '<div><div class="back-btn" onclick="showHome()">← 返回首页</div><iframe src="'+id+'.html" class="article-frame"></iframe></div>';
+            '<div><div class="back-btn" onclick="showHome()">← 返回首页</div><iframe src="public/'+id+'.html" class="article-frame"></iframe></div>';
         window.scrollTo(0,0);
     }
     
